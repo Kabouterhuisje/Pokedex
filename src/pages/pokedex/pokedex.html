@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> Pokédex </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar
+    (ionInput)="onInput($event)"
+    placeholder="Search Pokémon">
+  </ion-searchbar>
+  <ion-item col-lg-3>
+    <ion-label>Sort by</ion-label>
+    <ion-select [(ngModel)]="filter" (ionChange)="filterPokemon()">
+      <ion-option *ngFor="let filter of filters">{{filter}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-list>
+    <button ion-item *ngFor="let pokemon of pokemons" (click)="itemTapped($event, pokemon)" align-items-center="center">
+      {{pokemon}}
+    </button>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
